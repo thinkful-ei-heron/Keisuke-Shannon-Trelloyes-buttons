@@ -23,14 +23,14 @@ omit = (obj, keyToOmit) => {
 }
 
   handleDeleteClick = (id) => {
-    const newAllCardsArray = this.omit(this.state.store.allCards, id)
+    const newAllCardsObject = this.omit(this.state.store.allCards, id)
     const newLists = this.state.store.lists.map(list => {
       let newCardIds = list.cardIds.filter(cardIds => cardIds !== id)
       list.cardIds = newCardIds
       return list})
     const newStore = {
       lists: newLists,
-      allCards: newAllCardsArray,
+      allCards: newAllCardsObject,
     }
     this.setState({
       store: newStore
