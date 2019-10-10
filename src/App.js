@@ -10,8 +10,36 @@ class App extends Component {
     }
   };
 
+  state = {
+    store: this.props.store
+  }
+
+omit(obj, keyToOmit) {
+  return Object.entries(obj).reduce(
+    (newObj, [key, value]) =>
+        key === keyToOmit ? newObj : {...newObj, [key]: value},
+    {}
+  );
+}
+
+  handleDeleteClick(id) {
+    const newAllCardsArray = this.omit(this.state.store.allCards, id)
+    const newLists = this.state.store.lists.map(list => {
+      return list.cardIds.filter(cardIds => cardIds !== id)})
+    const newStore = {
+      lists: newLists,
+      allCards: newAllCardsArray,
+    }
+    this.setState({
+      store: newStore
+    })
+  }
+
+
+
   render() {
-    const { store } = this.props
+    const store = this.state.store
+    console.log(store.lists);
     return (
       <main className='App'>
         <header className='App-header'>
